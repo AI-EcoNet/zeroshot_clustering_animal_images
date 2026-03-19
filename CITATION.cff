@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite our paper as the preferred citation below."
+title: "Zero-Shot Clustering for Animal Images"
+type: software
+authors:
+  - family-names: "Markoff"
+    given-names: "Hugo"
+  - family-names: "Bengtson"
+    given-names: "Stefan Hein"
+  - family-names: "Ørsted"
+    given-names: "Michael"
+repository-code: "https://github.com/AI-EcoNet/zeroshot_clustering_animal_images"
+url: "https://github.com/AI-EcoNet/zeroshot_clustering_animal_images"
+license: "MIT"
+keywords:
+  - "computer vision"
+  - "vision transformers"
+  - "zero-shot"
+  - "clustering"
+  - "ecology"
+preferred-citation:
+  type: article
+  title: "Vision Transformers for Zero-Shot Clustering of Animal Images: A Comparative Benchmarking Study"
+  authors:
+    - family-names: "Markoff"
+      given-names: "Hugo"
+    - family-names: "Bengtson"
+      given-names: "Stefan Hein"
+    - family-names: "Ørsted"
+      given-names: "Michael"
+  journal: "arXiv preprint arXiv:2602.03894"
+  year: 2026
+  doi: "10.48550/arXiv.2602.03894"
+  url: "https://arxiv.org/abs/2602.03894"
