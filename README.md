@@ -191,7 +191,7 @@ Score definitions used in current leaderboards:
 |------|-------|------------|----------|
 | 1 | dinov3_vith16plus | 0.6759 | 60 |
 | 2 | dinov2_vitg14 | 0.6479 | 60 |
-| 3 | bioclip2_5_vith14 | 0.5969 | 9 |
+| 3 | bioclip2_5_vith14 | 0.5969 | 60 |
 | 4 | bioclip2_vitl14 | 0.4849 | 60 |
 | 5 | clip_vitl14 | 0.4312 | 60 |
 | 6 | siglip_vitb16 | 0.4309 | 60 |
@@ -202,8 +202,8 @@ Score definitions used in current leaderboards:
 |-------|-----------|----------|
 | **DINOv3** ⭐ | 1280D | Best overall performance |
 | **DINOv2** | 1536D | Great alternative, no auth required |
-| BioCLIP 2 | 768D | Biology-specific features |
 | BioCLIP 2.5 | 768D | Strong large-model biology baseline |
+| BioCLIP 2 | 768D | Biology-specific features |
 | CLIP | 768D | General purpose |
 | SigLIP | 768D | Efficient, smaller footprint |
 
