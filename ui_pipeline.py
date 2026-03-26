@@ -806,7 +806,7 @@ def prompt_embedding_selection() -> Tuple[str, List[Path]]:
         sys.exit(1)
     
     # Sort models with recommended ones first
-    model_order = ["dinov3", "dinov2", "bioclip2", "clip", "siglip"]
+    model_order = ["dinov3", "dinov2", "bioclip2", "bioclip2_5", "clip", "siglip"]
     sorted_models = sorted(available_models, key=lambda x: model_order.index(x) if x in model_order else 99)
     
     print_subheader("MODEL SELECTION")

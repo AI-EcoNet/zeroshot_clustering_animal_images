@@ -811,11 +811,11 @@ class ClusteringApp:
             
             self.log("")
             
-            # Download embeddings for all 5 models
-            self.log("[2/2] Downloading pre-computed embeddings (all 5 models)...")
-            self.log("      Models: DINOv3, DINOv2, BioCLIP2, CLIP, SigLIP")
+            # Download embeddings for all models
+            self.log("[2/2] Downloading pre-computed embeddings (all models)...")
+            self.log("      Models: DINOv3, DINOv2, BioCLIP 2, BioCLIP 2.5, CLIP, SigLIP")
             self.log("      Splits: Aves, Mammals")
-            self.log("      (10 total embedding files)")
+            self.log("      (12 total embedding files)")
             self.log("")
             
             try:
@@ -1203,8 +1203,10 @@ class ClusteringApp:
                 p = str(output_path)
                 if sys.platform.startswith("win"):
                     os.startfile(p)
+                elif sys.platform == "darwin":
+                    subprocess.run(["open", p], check=True)
                 else:
-                    subprocess.run(["xdg-open", p])
+                    subprocess.run(["xdg-open", p], check=True)
             except Exception as e:
                 messagebox.showinfo("Open Folder", f"Could not open folder: {e}")
     
