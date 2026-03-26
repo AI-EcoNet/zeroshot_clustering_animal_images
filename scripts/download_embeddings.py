@@ -9,6 +9,7 @@ Available embeddings:
 - DINOv3 (1280D) - Best performance
 - DINOv2 (1536D) - Second best
 - BioCLIP2 (768D)
+- BioCLIP 2.5 (768D)
 - CLIP (768D)
 - SigLIP (768D)
 
@@ -54,6 +55,12 @@ MODELS = {
         "hf_config": "embeddings_bioclip2_vitl14",
         "dim": 768,
         "description": "Biology domain ViT-L/14"
+    },
+    "bioclip2_5": {
+        "name": "BioCLIP 2.5",
+        "hf_config": "embeddings_bioclip2_5_vith14",
+        "dim": 768,
+        "description": "Biology domain ViT-H/14"
     },
     "clip": {
         "name": "CLIP",
@@ -446,6 +453,7 @@ Available models:
   dinov3   - DINOv3 ViT-H+/16 (1280D) ★★★ BEST
   dinov2   - DINOv2 ViT-G/14 (1536D) ★★ SECOND
   bioclip2 - BioCLIP 2 ViT-L/14 (768D)
+    bioclip2_5 - BioCLIP 2.5 ViT-H/14 (768D)
   clip     - CLIP ViT-L/14 (768D)
   siglip   - SigLIP ViT-B/16 (768D)
 

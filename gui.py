@@ -35,6 +35,7 @@ CUSTOM_DATA_DIR = REPO_ROOT / "custom_data"
 VIT_MODELS = [
     ("dinov3", "DINOv3", "★★★ BEST"),
     ("dinov2", "DINOv2", "★★ 2nd"),
+    ("bioclip2_5", "BioCLIP 2.5", ""),
     ("bioclip2", "BioCLIP 2", ""),
     ("clip", "CLIP", ""),
     ("siglip", "SigLIP", ""),
@@ -810,11 +811,11 @@ class ClusteringApp:
             
             self.log("")
             
-            # Download embeddings for all 5 models
-            self.log("[2/2] Downloading pre-computed embeddings (all 5 models)...")
-            self.log("      Models: DINOv3, DINOv2, BioCLIP2, CLIP, SigLIP")
+            # Download embeddings for all models
+            self.log("[2/2] Downloading pre-computed embeddings (all models)...")
+            self.log("      Models: DINOv3, DINOv2, BioCLIP 2, BioCLIP 2.5, CLIP, SigLIP")
             self.log("      Splits: Aves, Mammals")
-            self.log("      (10 total embedding files)")
+            self.log("      (12 total embedding files)")
             self.log("")
             
             try:
@@ -1197,7 +1198,17 @@ class ClusteringApp:
     def show_complete_dialog(self, output_path: str):
         """Show completion dialog."""
         if messagebox.askyesno("Complete", "Pipeline finished!\n\nOpen results folder?"):
-            os.startfile(output_path)
+            try:
+                import subprocess
+                p = str(output_path)
+                if sys.platform.startswith("win"):
+                    os.startfile(p)
+                elif sys.platform == "darwin":
+                    subprocess.run(["open", p], check=True)
+                else:
+                    subprocess.run(["xdg-open", p], check=True)
+            except Exception as e:
+                messagebox.showinfo("Open Folder", f"Could not open folder: {e}")
     
     def finish_pipeline(self):
         """Clean up after pipeline finishes."""

@@ -7,6 +7,7 @@ Supported models:
 - CLIP (ViT-L/14) - 768D embeddings
 - SigLIP (ViT-B/16) - 768D embeddings
 - BioCLIP 2 (ViT-L/14) - 768D embeddings
+- BioCLIP 2.5 (ViT-H/14) - 768D embeddings
 """
 
 from __future__ import annotations
@@ -55,6 +56,12 @@ AVAILABLE_MODELS = {
     "bioclip2": {
         "full_name": "bioclip2_vitl14",
         "description": "BioCLIP 2 ViT-L/14 (304M params, 768D)",
+        "embedding_dim": 768,
+        "requires_auth": False
+    },
+    "bioclip2_5": {
+        "full_name": "bioclip2_5_vith14",
+        "description": "BioCLIP 2.5 ViT-H/14 (1B params, 768D)",
         "embedding_dim": 768,
         "requires_auth": False
     }
@@ -509,14 +516,20 @@ def load_model(model_name: str, device: Optional[torch.device] = None) -> Tuple[
             model = SigLIPImageEncoder(siglip_model, processor)
             preprocess = lambda x: x
             
-        elif full_name == "bioclip2_vitl14":
-            print("    Downloading BioCLIP 2 from HuggingFace...")
+        elif full_name in ("bioclip2_vitl14", "bioclip2_5_vith14"):
+            print("    Downloading BioCLIP from HuggingFace...")
             try:
                 import open_clip
             except ImportError:
                 raise ImportError("OpenCLIP not installed. Install with: pip install open_clip_torch")
             
-            model, _, preprocess = open_clip.create_model_and_transforms('hf-hub:imageomics/bioclip-2')
+            hf_map = {
+                "bioclip2_vitl14": "hf-hub:imageomics/bioclip-2",
+                "bioclip2_5_vith14": "hf-hub:imageomics/bioclip-2.5-vith14",
+            }
+            
+            hub_id = hf_map.get(full_name)
+            model, _, preprocess = open_clip.create_model_and_transforms(hub_id)
             
             class BioCLIPImageEncoder(torch.nn.Module):
                 def __init__(self, clip_model):
@@ -527,7 +540,6 @@ def load_model(model_name: str, device: Optional[torch.device] = None) -> Tuple[
                     return self.clip_model.encode_image(x)
             
             model = BioCLIPImageEncoder(model)
-        
         else:
             raise ValueError(f"Unknown model: {full_name}")
         

@@ -50,6 +50,7 @@ VIT_MODELS = {
     "dinov3": {"name": "DINOv3", "dim": 1280, "recommended": True, "order": 1},
     "dinov2": {"name": "DINOv2", "dim": 1536, "recommended": True, "order": 2},
     "bioclip2": {"name": "BioCLIP 2", "dim": 768, "recommended": False, "order": 3},
+    "bioclip2_5": {"name": "BioCLIP 2.5", "dim": 768, "recommended": False, "order": 3},
     "clip": {"name": "CLIP", "dim": 768, "recommended": False, "order": 4},
     "siglip": {"name": "SigLIP", "dim": 768, "recommended": False, "order": 5},
 }
@@ -805,7 +806,7 @@ def prompt_embedding_selection() -> Tuple[str, List[Path]]:
         sys.exit(1)
     
     # Sort models with recommended ones first
-    model_order = ["dinov3", "dinov2", "bioclip2", "clip", "siglip"]
+    model_order = ["dinov3", "dinov2", "bioclip2", "bioclip2_5", "clip", "siglip"]
     sorted_models = sorted(available_models, key=lambda x: model_order.index(x) if x in model_order else 99)
     
     print_subheader("MODEL SELECTION")

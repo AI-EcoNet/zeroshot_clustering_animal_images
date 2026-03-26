@@ -118,7 +118,7 @@ python main.py --use-test-data --models dinov2 --clustering hdbscan --hdbscan-pr
 | `--use-test-data` | Use test data instead of custom data |
 | `--full` | Run full pipeline with all models |
 | `--quick` | Quick test with DINOv3 + t-SNE + HDBSCAN |
-| `--models MODEL [MODEL ...]` | Models to use (dinov3, dinov2, bioclip2, clip, siglip, all) |
+| `--models MODEL [MODEL ...]` | Models to use (dinov3, dinov2, bioclip2, bioclip2_5, clip, siglip, all) |
 | `--reductions METHOD [METHOD ...]` | Reduction methods (tsne, umap, pca, isomap, kernel_pca, all) |
 | `--clustering METHOD` | Clustering method (hdbscan, dbscan, hierarchical, gmm) |
 | `--hdbscan-preset PRESET` | HDBSCAN preset (small, medium, large) |
