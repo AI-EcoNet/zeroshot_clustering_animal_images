@@ -954,6 +954,10 @@ class ClusteringApp:
             if split_name == "both":
                 aves_emb_file = EMBEDDINGS_DIR / f"aves_{model}_embeddings.pkl"
                 mammals_emb_file = EMBEDDINGS_DIR / f"mammals_{model}_embeddings.pkl"
+                split_paths = {
+                    "aves": self.available_data["aves"]["path"] if self.available_data["aves"] else None,
+                    "mammals": self.available_data["mammals"]["path"] if self.available_data["mammals"] else None,
+                }
                 
                 # Try downloading missing embeddings from HuggingFace
                 if not aves_emb_file.exists():
@@ -967,6 +971,46 @@ class ClusteringApp:
                     downloaded = try_download_embeddings(model, "mammals", self.log)
                     if downloaded:
                         mammals_emb_file = downloaded
+
+                # If one or both split files are still missing, compute them locally.
+                missing_splits = []
+                if not aves_emb_file.exists():
+                    missing_splits.append("aves")
+                if not mammals_emb_file.exists():
+                    missing_splits.append("mammals")
+
+                if missing_splits:
+                    self.log(f"      ⚙ Computing missing embeddings locally: {', '.join(missing_splits)}")
+                    self.log("        (This may take several minutes...)")
+
+                    for missing_split in missing_splits:
+                        split_data_path = split_paths.get(missing_split)
+                        target_file = EMBEDDINGS_DIR / f"{missing_split}_{model}_embeddings.pkl"
+
+                        if not split_data_path:
+                            self.log(f"        ✗ No data path available for split: {missing_split}")
+                            self.finish_pipeline()
+                            return
+
+                        self.log(f"        → Extracting {missing_split} embeddings...")
+                        success = extract_embeddings_func(
+                            model_name=model,
+                            data_path=split_data_path,
+                            output_path=target_file,
+                            limit_per_class=samples_per_class if distribution == "even" else None,
+                            random_seed=42
+                        )
+
+                        if not success or not target_file.exists():
+                            self.log(f"        ✗ Failed to extract {missing_split} embeddings")
+                            self.finish_pipeline()
+                            return
+
+                        self.log(f"        ✓ Saved: {target_file.name}")
+                        if missing_split == "aves":
+                            aves_emb_file = target_file
+                        else:
+                            mammals_emb_file = target_file
                 
                 if aves_emb_file.exists() and mammals_emb_file.exists():
                     self.log(f"      ✓ Found: {aves_emb_file.name}")

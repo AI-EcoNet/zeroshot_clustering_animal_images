@@ -16,7 +16,7 @@ The paper presents a comprehensive benchmarking framework evaluating 5 ViT model
 
 ## Features
 
-- **Multiple ViT Models**: DINOv3 (best), DINOv2, BioCLIP 2, CLIP, SigLIP
+- **Multiple ViT Models**: DINOv3 (best), DINOv2, BioCLIP 2, BioCLIP 2.5, CLIP, SigLIP
 - **Dimension Reduction**: t-SNE (recommended), UMAP, PCA, Isomap, Kernel PCA
 - **Clustering Methods**: HDBSCAN (recommended), DBSCAN, Hierarchical, GMM
 - **Custom Data Support**: Works with your own image folders
@@ -158,6 +158,44 @@ python scripts/download_embeddings.py
 python scripts/download_embeddings.py --model dinov3
 ```
 
+## BioCLIP 2.5 Leaderboard Snapshot
+
+Latest BioCLIP 2.5 benchmark artifacts are published in the Hugging Face dataset:
+- `precomputed_embeddings/aves_bioclip2_5_embeddings.pkl`
+- `precomputed_embeddings/mammals_bioclip2_5_embeddings.pkl`
+- `bioclip2_5_benchmark/benchmark_results_20260326_185250.csv`
+- `bioclip2_5_benchmark/benchmark_results_20260326_185250.json`
+- `bioclip2_5_benchmark/summary_20260326_185250.md`
+- `bioclip2_5_benchmark/CURRENT_LEADERBOARDS.md`
+
+Score definitions used in current leaderboards:
+- Official score: `split_balanced_v_mean = (Aves mean V + Mammalia mean V) / 2`
+- BioCLIP 2.5 local score: overall V-measure on full Aves+Mammals run
+- Top models (mean): arithmetic mean of each model's config-level score
+
+### Combined Top Configurations (Official + BioCLIP 2.5)
+
+| Rank | Source | Model | Reduction | Clustering | Score |
+|------|--------|-------|-----------|------------|-------|
+| 1 | official_hf | dinov3_vith16plus | TSNE | HIERARCHICAL_K30 | 0.9576 |
+| 2 | official_hf | dinov3_vith16plus | TSNE | GMM_K30 | 0.9559 |
+| 3 | official_hf | dinov3_vith16plus | UMAP | HIERARCHICAL_K30 | 0.9545 |
+| 4 | official_hf | dinov3_vith16plus | UMAP | GMM_K30 | 0.9528 |
+| 5 | official_hf | dinov3_vith16plus | TSNE | HDBSCAN | 0.9435 |
+| 11 | local_bioclip2_5_full | bioclip2_5_vith14 | TSNE | HDBSCAN | 0.8822 |
+| 19 | local_bioclip2_5_full | bioclip2_5_vith14 | UMAP | HDBSCAN | 0.8590 |
+
+### Top Models (Mean Score)
+
+| Rank | Model | Mean Score | #Configs |
+|------|-------|------------|----------|
+| 1 | dinov3_vith16plus | 0.6759 | 60 |
+| 2 | dinov2_vitg14 | 0.6479 | 60 |
+| 3 | bioclip2_5_vith14 | 0.5969 | 9 |
+| 4 | bioclip2_vitl14 | 0.4849 | 60 |
+| 5 | clip_vitl14 | 0.4312 | 60 |
+| 6 | siglip_vitb16 | 0.4309 | 60 |
+
 ## Model Recommendations
 
 | Model | Embed Dim | Best For |
@@ -165,6 +203,7 @@ python scripts/download_embeddings.py --model dinov3
 | **DINOv3** ⭐ | 1280D | Best overall performance |
 | **DINOv2** | 1536D | Great alternative, no auth required |
 | BioCLIP 2 | 768D | Biology-specific features |
+| BioCLIP 2.5 | 768D | Strong large-model biology baseline |
 | CLIP | 768D | General purpose |
 | SigLIP | 768D | Efficient, smaller footprint |
 
