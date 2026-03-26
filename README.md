@@ -240,12 +240,14 @@ Score definitions used in current leaderboards:
 If you use this code or dataset in your research, please cite:
 
 ```bibtex
-@article{markoff2026vision,
-  title={Vision Transformers for Zero-Shot Clustering of Animal Images: A Comparative Benchmarking Study},
-  author={Markoff, Hugo and Bengtson, Stefan Hein and {\O}rsted, Michael},
-  journal={arXiv preprint arXiv:2602.03894},
-  year={2026}
-}
+    @article{Markoff_Vision_Transformers_for_2026,
+    author = {Markoff, Hugo and Bengtson, Stefan Hein and Ørsted, Michael},
+    doi = {10.48550/arXiv.2602.03894},
+    journal = {arXiv preprint arXiv:2602.03894},
+    title = {{Vision Transformers for Zero-Shot Clustering of Animal Images: A Comparative Benchmarking Study}},
+    url = {https://arxiv.org/abs/2602.03894},
+    year = {2026}
+    }
 ```
 
 ## License
